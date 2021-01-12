@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_blob_population_datalake'"
 		},
+		"ls_db_sql_azure_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_db_sql_azure'"
+		},
 		"ls_blob_population_datalake_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://postedatalake.dfs.core.windows.net"
@@ -51,6 +55,9 @@
 					},
 					"ls_blob_population_datalake_accountKey": {
 						"value": "[parameters('ls_blob_population_datalake_accountKey')]"
+					},
+					"ls_db_sql_azure_connectionString": {
+						"value": "[parameters('ls_db_sql_azure_connectionString')]"
 					},
 					"ls_blob_population_datalake_properties_typeProperties_url": {
 						"value": "[parameters('ls_blob_population_datalake_properties_typeProperties_url')]"

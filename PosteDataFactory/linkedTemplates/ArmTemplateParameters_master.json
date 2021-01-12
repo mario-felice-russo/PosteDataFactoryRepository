@@ -11,6 +11,9 @@
 		"ls_blob_population_datalake_accountKey": {
 			"value": ""
 		},
+		"ls_db_sql_azure_connectionString": {
+			"value": ""
+		},
 		"ls_blob_population_datalake_properties_typeProperties_url": {
 			"value": "https://postedatalake.dfs.core.windows.net"
 		},

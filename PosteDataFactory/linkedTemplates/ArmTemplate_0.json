@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_blob_population_datalake'"
 		},
+		"ls_db_sql_azure_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_db_sql_azure'"
+		},
 		"ls_blob_population_datalake_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://postedatalake.dfs.core.windows.net"
@@ -50,6 +54,19 @@
 						"type": "SecureString",
 						"value": "[parameters('ls_blob_population_datalake_accountKey')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_db_sql_azure')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_db_sql_azure_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -110,6 +127,102 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ls_blob_population_datalake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sql_database_poste_population')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_db_sql_azure",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "GEO_TIME",
+						"type": "nvarchar"
+					},
+					{
+						"name": "F2008",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "F2009",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "F2010",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "F2011",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "F2012",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "F2013",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "F2014",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "F2015",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "F2016",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "F2017",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "F2018",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "F2019",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "F2020",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "F2021",
+						"type": "float",
+						"precision": 15
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "POPULATION"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_db_sql_azure')]"
 			]
 		},
 		{
@@ -177,6 +290,223 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "Copy data to Database",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy population data",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.00:05:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "indic_de,geo\\time",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "GEO_TIME",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "2008 ",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "F2008",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "2009 ",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "F2009",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "2010 ",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "F2010",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "2011 ",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "F2011",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "2012 ",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "F2012",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "2013 ",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "F2013",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "2014 ",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "F2014",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "2015 ",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "F2015",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "2016 ",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "F2016",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "2017 ",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "F2017",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "2018 ",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "F2018",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "2019 ",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "F2019",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_population_datalake",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_sql_database_poste_population",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"concurrency": 1,
@@ -184,7 +514,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_population_compressed')]",
-				"[concat(variables('factoryId'), '/datasets/ds_population_datalake')]"
+				"[concat(variables('factoryId'), '/datasets/ds_population_datalake')]",
+				"[concat(variables('factoryId'), '/datasets/ds_sql_database_poste_population')]"
 			]
 		}
 	]
