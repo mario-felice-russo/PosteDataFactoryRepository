@@ -59,6 +59,29 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Copy data to Database",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Copy population data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:05:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"enableStaging": false
+				}
 			}
 		],
 		"concurrency": 1,
