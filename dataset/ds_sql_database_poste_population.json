@@ -1,0 +1,91 @@
+{
+	"name": "ds_sql_database_poste_population",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_db_sql_azure",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "GEO_TIME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "F2008",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "F2009",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "F2010",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "F2011",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "F2012",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "F2013",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "F2014",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "F2015",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "F2016",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "F2017",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "F2018",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "F2019",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "F2020",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "F2021",
+				"type": "float",
+				"precision": 15
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "POPULATION"
+		}
+	}
+}
