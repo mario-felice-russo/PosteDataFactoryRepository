@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "PosteDataFactory"
+		},
+		"ls_blob_population_compressed_connectionString": {
+			"value": ""
+		},
+		"ls_blob_population_datalake_accountKey": {
+			"value": ""
+		},
+		"ls_blob_population_datalake_properties_typeProperties_url": {
+			"value": "https://postedatalake.dfs.core.windows.net"
+		}
+	}
+}
