@@ -12,9 +12,21 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
-			"script": "source(output(\n\t\t{indic_de,geo\\time} as string,\n\t\t{2008} as string,\n\t\t{2009} as string,\n\t\t{2010} as string,\n\t\t{2011} as string,\n\t\t{2012} as string,\n\t\t{2013} as string,\n\t\t{2014} as string,\n\t\t{2015} as string,\n\t\t{2016} as string,\n\t\t{2017} as string,\n\t\t{2018} as string,\n\t\t{2019} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1"
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_sql_database_poste_population",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AlterRow1"
+				}
+			],
+			"script": "source(output(\n\t\t{indic_de,geo\\time} as string,\n\t\t{2008} as string,\n\t\t{2009} as string,\n\t\t{2010} as string,\n\t\t{2011} as string,\n\t\t{2012} as string,\n\t\t{2013} as string,\n\t\t{2014} as string,\n\t\t{2015} as string,\n\t\t{2016} as string,\n\t\t{2017} as string,\n\t\t{2018} as string,\n\t\t{2019} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource1 alterRow() ~> AlterRow1\nAlterRow1 sink(input(\n\t\tGEO_TIME as string,\n\t\tF2008 as double,\n\t\tF2009 as double,\n\t\tF2010 as double,\n\t\tF2011 as double,\n\t\tF2012 as double,\n\t\tF2013 as double,\n\t\tF2014 as double,\n\t\tF2015 as double,\n\t\tF2016 as double,\n\t\tF2017 as double,\n\t\tF2018 as double,\n\t\tF2019 as double,\n\t\tF2020 as double,\n\t\tF2021 as double\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink1"
 		}
 	}
 }
