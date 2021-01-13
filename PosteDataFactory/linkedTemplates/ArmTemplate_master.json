@@ -19,7 +19,15 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_db_sql_azure'"
 		},
+		"ls_dl_population_filled_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_dl_population_filled'"
+		},
 		"ls_blob_population_datalake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://postedatalake.dfs.core.windows.net"
+		},
+		"ls_dl_population_filled_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://postedatalake.dfs.core.windows.net"
 		},
@@ -59,8 +67,14 @@
 					"ls_db_sql_azure_connectionString": {
 						"value": "[parameters('ls_db_sql_azure_connectionString')]"
 					},
+					"ls_dl_population_filled_accountKey": {
+						"value": "[parameters('ls_dl_population_filled_accountKey')]"
+					},
 					"ls_blob_population_datalake_properties_typeProperties_url": {
 						"value": "[parameters('ls_blob_population_datalake_properties_typeProperties_url')]"
+					},
+					"ls_dl_population_filled_properties_typeProperties_url": {
+						"value": "[parameters('ls_dl_population_filled_properties_typeProperties_url')]"
 					}
 				}
 			},

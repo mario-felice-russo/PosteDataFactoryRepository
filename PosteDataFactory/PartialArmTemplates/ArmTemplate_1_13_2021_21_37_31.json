@@ -6,30 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "PosteDataFactory"
-		},
-		"ls_blob_population_compressed_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'ls_blob_population_compressed'"
-		},
-		"ls_blob_population_datalake_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'ls_blob_population_datalake'"
-		},
-		"ls_db_sql_azure_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'ls_db_sql_azure'"
-		},
-		"ls_dl_population_filled_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'ls_dl_population_filled'"
-		},
-		"ls_blob_population_datalake_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://postedatalake.dfs.core.windows.net"
-		},
-		"ls_dl_population_filled_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://postedatalake.dfs.core.windows.net"
 		}
 	},
 	"variables": {
@@ -257,15 +233,13 @@
 						"inputs": [
 							{
 								"referenceName": "ds_population_compressed",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "ds_population_datalake",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					},
@@ -485,15 +459,13 @@
 						"inputs": [
 							{
 								"referenceName": "ds_population_datalake",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "ds_sql_database_poste_population",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					},
@@ -519,14 +491,8 @@
 						"typeProperties": {
 							"dataflow": {
 								"referenceName": "dataflow1",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"source1": {},
-									"sink1": {}
-								}
+								"type": "DataFlowReference"
 							},
-							"staging": {},
 							"compute": {
 								"coreCount": 8,
 								"computeType": "General"
@@ -541,7 +507,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_population_compressed')]",
 				"[concat(variables('factoryId'), '/datasets/ds_population_datalake')]",
-				"[concat(variables('factoryId'), '/datasets/ds_sql_database_poste_population')]",
 				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
 			]
 		},
@@ -624,9 +589,7 @@
 					}
 				]
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_blob_population_compressed')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ds_population_datalake')]",
@@ -705,147 +668,6 @@
 					}
 				]
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_blob_population_datalake')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_sql_database_poste_population')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_db_sql_azure",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "GEO_TIME",
-						"type": "nvarchar"
-					},
-					{
-						"name": "F2008",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "F2009",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "F2010",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "F2011",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "F2012",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "F2013",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "F2014",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "F2015",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "F2016",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "F2017",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "F2018",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "F2019",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "F2020",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "F2021",
-						"type": "float",
-						"precision": 15
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "POPULATION"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_db_sql_azure')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ls_blob_population_compressed')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('ls_blob_population_compressed_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ls_blob_population_datalake')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('ls_blob_population_datalake_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('ls_blob_population_datalake_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ls_db_sql_azure')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('ls_db_sql_azure_connectionString')]"
-				}
-			},
 			"dependsOn": []
 		},
 		{
@@ -882,8 +704,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_population_datalake')]",
-				"[concat(variables('factoryId'), '/datasets/ds_sql_database_poste_population')]"
+				"[concat(variables('factoryId'), '/datasets/ds_population_datalake')]"
 			]
 		},
 		{
@@ -894,10 +715,10 @@
 				"annotations": [],
 				"type": "AzureBlobFS",
 				"typeProperties": {
-					"url": "[parameters('ls_dl_population_filled_properties_typeProperties_url')]",
+					"url": "https://postedatalake.dfs.core.windows.net",
 					"accountKey": {
 						"type": "SecureString",
-						"value": "[parameters('ls_dl_population_filled_accountKey')]"
+						"value": "**********"
 					}
 				}
 			},

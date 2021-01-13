@@ -19,7 +19,15 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_db_sql_azure'"
 		},
+		"ls_dl_population_filled_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_dl_population_filled'"
+		},
 		"ls_blob_population_datalake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://postedatalake.dfs.core.windows.net"
+		},
+		"ls_dl_population_filled_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://postedatalake.dfs.core.windows.net"
 		}
@@ -72,6 +80,23 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ls_dl_population_filled')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_dl_population_filled_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ls_dl_population_filled_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ds_population_compressed')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -85,7 +110,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "population_by_age.tsv.gz",
+						"fileName": "population_filled.tsv.gz",
 						"container": "popolazione"
 					},
 					"columnDelimiter": "\t",
@@ -95,7 +120,60 @@
 					"firstRowAsHeader": true,
 					"quoteChar": "\""
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "indic_de,geo\\time",
+						"type": "String"
+					},
+					{
+						"name": "2008",
+						"type": "String"
+					},
+					{
+						"name": "2009",
+						"type": "String"
+					},
+					{
+						"name": "2010",
+						"type": "String"
+					},
+					{
+						"name": "2011",
+						"type": "String"
+					},
+					{
+						"name": "2012",
+						"type": "String"
+					},
+					{
+						"name": "2013",
+						"type": "String"
+					},
+					{
+						"name": "2014",
+						"type": "String"
+					},
+					{
+						"name": "2015",
+						"type": "String"
+					},
+					{
+						"name": "2016",
+						"type": "String"
+					},
+					{
+						"name": "2017",
+						"type": "String"
+					},
+					{
+						"name": "2018",
+						"type": "String"
+					},
+					{
+						"name": "2019",
+						"type": "String"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ls_blob_population_compressed')]"
@@ -115,7 +193,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "population_by_age.tsv",
+						"fileName": "population.tsv",
 						"fileSystem": "raw"
 					},
 					"columnDelimiter": "\t",
@@ -123,7 +201,60 @@
 					"firstRowAsHeader": true,
 					"quoteChar": "\""
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "indic_de,geo\\time",
+						"type": "String"
+					},
+					{
+						"name": "2008",
+						"type": "String"
+					},
+					{
+						"name": "2009",
+						"type": "String"
+					},
+					{
+						"name": "2010",
+						"type": "String"
+					},
+					{
+						"name": "2011",
+						"type": "String"
+					},
+					{
+						"name": "2012",
+						"type": "String"
+					},
+					{
+						"name": "2013",
+						"type": "String"
+					},
+					{
+						"name": "2014",
+						"type": "String"
+					},
+					{
+						"name": "2015",
+						"type": "String"
+					},
+					{
+						"name": "2016",
+						"type": "String"
+					},
+					{
+						"name": "2017",
+						"type": "String"
+					},
+					{
+						"name": "2018",
+						"type": "String"
+					},
+					{
+						"name": "2019",
+						"type": "String"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ls_blob_population_datalake')]"
@@ -226,6 +357,78 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_population_filled')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_dl_population_filled",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "population_filled.tsv",
+						"fileSystem": "raw"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_dl_population_filled')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_population_datalake",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "ds_sql_database_poste_population",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "DerivedColumn1"
+						}
+					],
+					"script": "source(output(\n\t\t{indic_de,geo\\time} as string,\n\t\t{2008} as float '##0.##',\n\t\t{2009} as float '##0.##',\n\t\t{2010} as float '##0.##',\n\t\t{2011} as float '##0.##',\n\t\t{2012} as float '##0.##',\n\t\t{2013} as float '##0.##',\n\t\t{2014} as float '##0.##',\n\t\t{2015} as float '##0.##',\n\t\t{2016} as float '##0.##',\n\t\t{2017} as float '##0.##',\n\t\t{2018} as float '##0.##',\n\t\t{2019} as float '##0.##'\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource1 derive({2008} = iifNull({2008}, 0),\n\t\t{2009} = iifNull({2009}, 0),\n\t\t{2010} = iifNull({2010}, 0),\n\t\t{2011} = iifNull({2011}, 0),\n\t\t{2012} = iifNull({2012}, 0),\n\t\t{2013} = iifNull({2013}, 0),\n\t\t{2014} = iifNull({2014}, 0),\n\t\t{2015} = iifNull({2015}, 0),\n\t\t{2016} = iifNull({2016}, 0),\n\t\t{2017} = iifNull({2017}, 0),\n\t\t{2018} = iifNull({2018}, 0),\n\t\t{2019} = iifNull({2019}, 0)) ~> DerivedColumn1\nDerivedColumn1 sink(input(\n\t\tGEO_TIME as string,\n\t\tF2008 as double,\n\t\tF2009 as double,\n\t\tF2010 as double,\n\t\tF2011 as double,\n\t\tF2012 as double,\n\t\tF2013 as double,\n\t\tF2014 as double,\n\t\tF2015 as double,\n\t\tF2016 as double,\n\t\tF2017 as double,\n\t\tF2018 as double,\n\t\tF2019 as double,\n\t\tF2020 as double,\n\t\tF2021 as double\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tmapColumn(\n\t\tGEO_TIME = {indic_de,geo\\time},\n\t\tF2008 = {2008},\n\t\tF2009 = {2009},\n\t\tF2010 = {2010},\n\t\tF2011 = {2011},\n\t\tF2012 = {2012},\n\t\tF2013 = {2013},\n\t\tF2014 = {2014},\n\t\tF2015 = {2015},\n\t\tF2016 = {2016},\n\t\tF2017 = {2017},\n\t\tF2018 = {2018}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink1"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_population_datalake')]",
+				"[concat(variables('factoryId'), '/datasets/ds_sql_database_poste_population')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pl_ingest_population')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -242,7 +445,16 @@
 							"secureOutput": false,
 							"secureInput": false
 						},
-						"userProperties": [],
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "popolazione//population.tsv.gz"
+							},
+							{
+								"name": "Destination",
+								"value": "raw//population.tsv"
+							}
+						],
 						"typeProperties": {
 							"source": {
 								"type": "DelimitedTextSource",
@@ -269,6 +481,164 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "indic_de,geo\\time",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "indic_de,geo\\time",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "2008",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "2008",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "2009",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "2009",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "2010",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "2010",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "2011",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "2011",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "2012",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "2012",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "2013",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "2013",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "2014",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "2014",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "2015",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "2015",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "2016",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "2016",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "2017",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "2017",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "2018",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "2018",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "2019",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "2019",
+											"type": "String",
+											"physicalType": "String"
+										}
+									}
+								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -296,7 +666,7 @@
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "Copy population data",
+								"activity": "dataflow1",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -309,7 +679,16 @@
 							"secureOutput": false,
 							"secureInput": false
 						},
-						"userProperties": [],
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "raw//population.tsv"
+							},
+							{
+								"name": "Destination",
+								"value": "dbo.POPULATION"
+							}
+						],
 						"typeProperties": {
 							"source": {
 								"type": "DelimitedTextSource",
@@ -323,7 +702,9 @@
 								}
 							},
 							"sink": {
-								"type": "AzureSqlSink"
+								"type": "AzureSqlSink",
+								"preCopyScript": "TRUNCATE TABLE POPULATION",
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
@@ -343,7 +724,7 @@
 									},
 									{
 										"source": {
-											"name": "2008 ",
+											"name": "2008",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -355,7 +736,7 @@
 									},
 									{
 										"source": {
-											"name": "2009 ",
+											"name": "2009",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -367,7 +748,7 @@
 									},
 									{
 										"source": {
-											"name": "2010 ",
+											"name": "2010",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -379,7 +760,7 @@
 									},
 									{
 										"source": {
-											"name": "2011 ",
+											"name": "2011",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -391,7 +772,7 @@
 									},
 									{
 										"source": {
-											"name": "2012 ",
+											"name": "2012",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -403,7 +784,7 @@
 									},
 									{
 										"source": {
-											"name": "2013 ",
+											"name": "2013",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -415,7 +796,7 @@
 									},
 									{
 										"source": {
-											"name": "2014 ",
+											"name": "2014",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -427,7 +808,7 @@
 									},
 									{
 										"source": {
-											"name": "2015 ",
+											"name": "2015",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -439,7 +820,7 @@
 									},
 									{
 										"source": {
-											"name": "2016 ",
+											"name": "2016",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -451,7 +832,7 @@
 									},
 									{
 										"source": {
-											"name": "2017 ",
+											"name": "2017",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -463,7 +844,7 @@
 									},
 									{
 										"source": {
-											"name": "2018 ",
+											"name": "2018",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -475,7 +856,7 @@
 									},
 									{
 										"source": {
-											"name": "2019 ",
+											"name": "2019",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -507,6 +888,43 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "dataflow1",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Copy population data",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow1",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"source1": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
 					}
 				],
 				"concurrency": 1,
@@ -515,7 +933,8 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_population_compressed')]",
 				"[concat(variables('factoryId'), '/datasets/ds_population_datalake')]",
-				"[concat(variables('factoryId'), '/datasets/ds_sql_database_poste_population')]"
+				"[concat(variables('factoryId'), '/datasets/ds_sql_database_poste_population')]",
+				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
 			]
 		}
 	]
