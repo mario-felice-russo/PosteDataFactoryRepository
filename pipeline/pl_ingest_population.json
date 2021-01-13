@@ -65,7 +65,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Copy population data",
+						"activity": "U-SQL1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -276,6 +276,34 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "U-SQL1",
+				"type": "DataLakeAnalyticsU-SQL",
+				"dependsOn": [
+					{
+						"activity": "Copy population data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:05:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"scriptPath": "u-sql1/IsNullDataSetTo0",
+					"degreeOfParallelism": 3,
+					"scriptLinkedService": {
+						"referenceName": "ls_blob_population_compressed",
+						"type": "LinkedServiceReference"
+					}
+				}
 			}
 		],
 		"concurrency": 1,
