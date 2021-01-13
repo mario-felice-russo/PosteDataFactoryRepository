@@ -232,7 +232,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Copy population data",
+						"activity": "dataflow1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -456,7 +456,14 @@
 			{
 				"name": "dataflow1",
 				"type": "ExecuteDataFlow",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Copy population data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
