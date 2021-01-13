@@ -1,0 +1,20 @@
+{
+	"name": "df_TransformNullValues",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_population_datalake",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"script": "source(output(\n\t\t{indic_de,geo\\time} as string,\n\t\t{2008} as float,\n\t\t{2009} as float,\n\t\t{2010} as float,\n\t\t{2011} as float,\n\t\t{2012} as float,\n\t\t{2013} as float,\n\t\t{2014} as float,\n\t\t{2015} as float,\n\t\t{2016} as float,\n\t\t{2017} as float,\n\t\t{2018} as float,\n\t\t{2019} as float\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tskipLines: 1) ~> source1"
+		}
+	}
+}
