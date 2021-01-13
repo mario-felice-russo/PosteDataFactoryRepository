@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "population.tsv",
+				"fileName": "population_filled.tsv",
 				"fileSystem": "raw"
 			},
 			"columnDelimiter": "\t",
