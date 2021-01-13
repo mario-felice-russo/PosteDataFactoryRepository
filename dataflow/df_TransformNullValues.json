@@ -14,7 +14,7 @@
 			],
 			"sinks": [],
 			"transformations": [],
-			"script": "source(output(\n\t\t{PC_Y0_14,AD} as string,\n\t\t{14.6 } as string,\n\t\t{14.5 2} as string,\n\t\t{14.5 3} as string,\n\t\t{15.5 4} as string,\n\t\t{15.5 5} as string,\n\t\t{15.5 6} as string,\n\t\t{ 7} as string,\n\t\t{ 8} as string,\n\t\t{ 9} as string,\n\t\t{ 10} as string,\n\t\t{ 11} as string,\n\t\t{13.9 } as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1"
+			"script": "source(output(\n\t\t{indic_de,geo\\time} as string,\n\t\t{2008} as string,\n\t\t{2009} as string,\n\t\t{2010} as string,\n\t\t{2011} as string,\n\t\t{2012} as string,\n\t\t{2013} as string,\n\t\t{2014} as string,\n\t\t{2015} as string,\n\t\t{2016} as string,\n\t\t{2017} as string,\n\t\t{2018} as string,\n\t\t{2019} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true,\n\tignoreNoFilesFound: false,\n\tinferDriftedColumnTypes: true) ~> source1"
 		}
 	}
 }
