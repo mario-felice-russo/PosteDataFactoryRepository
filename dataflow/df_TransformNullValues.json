@@ -13,12 +13,8 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [
-				{
-					"name": "LookForNULLs"
-				}
-			],
-			"script": "source(output(\n\t\t{PC_Y0_14,AD} as string,\n\t\t{14.6 } as string,\n\t\t{14.5 2} as string,\n\t\t{14.5 3} as string,\n\t\t{15.5 4} as string,\n\t\t{15.5 5} as string,\n\t\t{15.5 6} as string,\n\t\t{ 7} as string,\n\t\t{ 8} as string,\n\t\t{ 9} as string,\n\t\t{ 10} as string,\n\t\t{ 11} as string,\n\t\t{13.9 } as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tskipLines: 1) ~> source1\nsource1 split(contains(array(columns()),isNull(#item)),\n\tdisjoint: true) ~> LookForNULLs@(hasNULLs, noNULLs)"
+			"transformations": [],
+			"script": "source(output(\n\t\t{PC_Y0_14,AD} as string,\n\t\t{14.6 } as string,\n\t\t{14.5 2} as string,\n\t\t{14.5 3} as string,\n\t\t{15.5 4} as string,\n\t\t{15.5 5} as string,\n\t\t{15.5 6} as string,\n\t\t{ 7} as string,\n\t\t{ 8} as string,\n\t\t{ 9} as string,\n\t\t{ 10} as string,\n\t\t{ 11} as string,\n\t\t{13.9 } as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1"
 		}
 	}
 }
