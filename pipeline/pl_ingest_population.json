@@ -92,7 +92,9 @@
 						}
 					},
 					"sink": {
-						"type": "AzureSqlSink"
+						"type": "AzureSqlSink",
+						"preCopyScript": "TRUNCATE TABLE POPULATION",
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
