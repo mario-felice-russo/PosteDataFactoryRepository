@@ -16,18 +16,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ds_population_datalake",
+						"referenceName": "ds_datalake_populations_files",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
-						"columnCount",
-						"contentMD5",
 						"exists",
 						"itemName",
 						"itemType",
-						"lastModified",
-						"size",
-						"structure"
+						"lastModified"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
@@ -37,6 +33,19 @@
 						"type": "DelimitedTextReadSettings"
 					}
 				}
+			},
+			{
+				"name": "If Condition1",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": []
 			}
 		],
 		"annotations": []
