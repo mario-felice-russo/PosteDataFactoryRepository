@@ -62,7 +62,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "contains(@item().name, 'population')",
+									"value": "@contains(item().name, 'population')",
 									"type": "Expression"
 								},
 								"ifTrueActivities": [
@@ -85,20 +85,15 @@
 													"value": "Insert",
 													"type": "String"
 												},
-												"Dataora": {
-													"value": "",
-													"type": "DateTime"
-												},
 												"Filename": {
-													"value": "",
+													"value": {
+														"value": "@activity('Get Metadata1').output.name",
+														"type": "Expression"
+													},
 													"type": "String"
 												},
-												"Id": {
-													"value": "",
-													"type": "Int64"
-												},
 												"IsLoaded": {
-													"value": "",
+													"value": "true",
 													"type": "Boolean"
 												},
 												"IsMoved": {
