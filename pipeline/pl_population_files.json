@@ -90,12 +90,12 @@
 								"storedProcedureName": "[dbo].[PR_LogRepository]",
 								"storedProcedureParameters": {
 									"Command": {
-										"value": "Insert",
+										"value": "Upsert",
 										"type": "String"
 									},
 									"Filename": {
 										"value": {
-											"value": "item().name",
+											"value": "@item().name",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -138,18 +138,18 @@
 								"storedProcedureName": "[dbo].[PR_LogRepository]",
 								"storedProcedureParameters": {
 									"Command": {
-										"value": "Insert",
+										"value": "Upsert",
 										"type": "String"
 									},
 									"Filename": {
 										"value": {
-											"value": "item().name",
+											"value": "@item().name",
 											"type": "Expression"
 										},
 										"type": "String"
 									},
 									"IsLoaded": {
-										"value": "true",
+										"value": "false",
 										"type": "Boolean"
 									},
 									"IsMoved": {
