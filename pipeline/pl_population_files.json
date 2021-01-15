@@ -59,7 +59,12 @@
 							"name": "If Condition1",
 							"type": "IfCondition",
 							"dependsOn": [],
-							"userProperties": [],
+							"userProperties": [
+								{
+									"name": "currentItem",
+									"value": "@item()"
+								}
+							],
 							"typeProperties": {
 								"expression": {
 									"value": "@contains(item().name, 'population')",
@@ -77,11 +82,7 @@
 											"secureOutput": false,
 											"secureInput": false
 										},
-										"userProperties": [
-											{
-												"name": "Filename"
-											}
-										],
+										"userProperties": [],
 										"typeProperties": {
 											"storedProcedureName": "[dbo].[PR_LogRepository]",
 											"storedProcedureParameters": {
