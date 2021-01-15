@@ -162,6 +162,31 @@
 								"referenceName": "ls_db_sql_azure",
 								"type": "LinkedServiceReference"
 							}
+						},
+						{
+							"name": "Execute Pipeline1",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "Stored procedure1_copy1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [
+								{
+									"name": "currentItem",
+									"value": "@item().name"
+								}
+							],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_ingest_population",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
 						}
 					]
 				}
