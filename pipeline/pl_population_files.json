@@ -77,7 +77,11 @@
 											"secureOutput": false,
 											"secureInput": false
 										},
-										"userProperties": [],
+										"userProperties": [
+											{
+												"name": "Filename"
+											}
+										],
 										"typeProperties": {
 											"storedProcedureName": "[dbo].[PR_LogRepository]",
 											"storedProcedureParameters": {
@@ -86,10 +90,6 @@
 													"type": "String"
 												},
 												"Filename": {
-													"value": {
-														"value": "@activity('Get Metadata1').output.name",
-														"type": "Expression"
-													},
 													"type": "String"
 												},
 												"IsLoaded": {
