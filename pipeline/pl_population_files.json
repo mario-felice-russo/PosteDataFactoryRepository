@@ -164,8 +164,8 @@
 							}
 						},
 						{
-							"name": "Execute Pipeline1",
-							"type": "ExecutePipeline",
+							"name": "AdaptNullDataFlow",
+							"type": "ExecuteDataFlow",
 							"dependsOn": [
 								{
 									"activity": "Stored procedure1_copy1",
@@ -174,19 +174,30 @@
 									]
 								}
 							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_ingest_population",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"currentFile": {
-										"value": "@item().name",
-										"type": "Expression"
+								"dataflow": {
+									"referenceName": "AdaptNullDataFlow",
+									"type": "DataFlowReference",
+									"parameters": {
+										"currentFile": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
 									}
-								}
+								},
+								"compute": {
+									"coreCount": 8,
+									"computeType": "General"
+								},
+								"traceLevel": "Fine"
 							}
 						}
 					]
