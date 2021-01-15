@@ -78,6 +78,35 @@
 											"secureInput": false
 										},
 										"userProperties": [],
+										"typeProperties": {
+											"storedProcedureName": "[dbo].[PR_LogRepository]",
+											"storedProcedureParameters": {
+												"Command": {
+													"value": "Insert",
+													"type": "String"
+												},
+												"Dataora": {
+													"value": "",
+													"type": "DateTime"
+												},
+												"Filename": {
+													"value": "",
+													"type": "String"
+												},
+												"Id": {
+													"value": "",
+													"type": "Int64"
+												},
+												"IsLoaded": {
+													"value": "",
+													"type": "Boolean"
+												},
+												"IsMoved": {
+													"value": "",
+													"type": "Boolean"
+												}
+											}
+										},
 										"linkedServiceName": {
 											"referenceName": "ls_db_sql_azure",
 											"type": "LinkedServiceReference"
