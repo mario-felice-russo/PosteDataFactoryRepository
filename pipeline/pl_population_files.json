@@ -139,23 +139,23 @@
 								"storedProcedureName": "[dbo].[PR_LogRepository]",
 								"storedProcedureParameters": {
 									"Command": {
-										"value": "",
+										"value": "Upsert",
 										"type": "String"
 									},
 									"Filename": {
-										"value": "",
+										"value": "@item().name",
 										"type": "String"
 									},
 									"IsLoaded": {
-										"value": "",
+										"value": "false",
 										"type": "Boolean"
 									},
 									"IsMoved": {
-										"value": "",
+										"value": null,
 										"type": "Boolean"
 									},
 									"Message": {
-										"value": "",
+										"value": null,
 										"type": "String"
 									}
 								}
