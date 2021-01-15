@@ -486,6 +486,11 @@
 			}
 		],
 		"concurrency": 1,
+		"parameters": {
+			"currentFile": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
