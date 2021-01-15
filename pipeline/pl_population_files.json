@@ -91,6 +91,10 @@
 													"type": "String"
 												},
 												"Filename": {
+													"value": {
+														"value": "activity('ForEach1').output.item().name",
+														"type": "Expression"
+													},
 													"type": "String"
 												},
 												"IsLoaded": {
