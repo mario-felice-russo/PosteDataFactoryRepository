@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata1",
+				"name": "GetListOfFiles",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
@@ -37,11 +37,11 @@
 				}
 			},
 			{
-				"name": "ForEach1",
+				"name": "ForEachFile",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Metadata1",
+						"activity": "FileFilter",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -50,7 +50,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Metadata1').output.childItems",
+						"value": "@activity('FileFilter').output.Value",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -435,6 +435,29 @@
 							]
 						}
 					]
+				}
+			},
+			{
+				"name": "FileFilter",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "GetListOfFiles",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('GetListOfFiles').output.childItems",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@and(endswith(item().name, 'tsv'), equals(item().type, 'File'))",
+						"type": "Expression"
+					}
 				}
 			}
 		],
