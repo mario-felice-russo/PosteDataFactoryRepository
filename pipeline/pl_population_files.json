@@ -174,18 +174,19 @@
 									]
 								}
 							],
-							"userProperties": [
-								{
-									"name": "currentItem",
-									"value": "@item().name"
-								}
-							],
+							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
 									"referenceName": "pl_ingest_population",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"currentFile": {
+										"value": "@item().name",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					]
