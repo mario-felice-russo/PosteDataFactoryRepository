@@ -59,60 +59,108 @@
 							"name": "If Condition1",
 							"type": "IfCondition",
 							"dependsOn": [],
-							"userProperties": [
-								{
-									"name": "currentItem",
-									"value": "@item()"
-								}
-							],
+							"userProperties": [],
 							"typeProperties": {
 								"expression": {
 									"value": "@contains(item().name, 'population')",
 									"type": "Expression"
-								},
-								"ifTrueActivities": [
-									{
-										"name": "Stored procedure1",
-										"type": "SqlServerStoredProcedure",
-										"dependsOn": [],
-										"policy": {
-											"timeout": "0.00:05:00",
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
+								}
+							}
+						},
+						{
+							"name": "Stored procedure1_copy1",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "If Condition1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.00:05:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[PR_LogRepository]",
+								"storedProcedureParameters": {
+									"Command": {
+										"value": "Insert",
+										"type": "String"
+									},
+									"Filename": {
+										"value": {
+											"value": "item().name",
+											"type": "Expression"
 										},
-										"userProperties": [],
-										"typeProperties": {
-											"storedProcedureName": "[dbo].[PR_LogRepository]",
-											"storedProcedureParameters": {
-												"Command": {
-													"value": "Insert",
-													"type": "String"
-												},
-												"Filename": {
-													"value": {
-														"value": "activity('ForEach1').output.item().name",
-														"type": "Expression"
-													},
-													"type": "String"
-												},
-												"IsLoaded": {
-													"value": "true",
-													"type": "Boolean"
-												},
-												"IsMoved": {
-													"value": null,
-													"type": "Boolean"
-												}
-											}
-										},
-										"linkedServiceName": {
-											"referenceName": "ls_db_sql_azure",
-											"type": "LinkedServiceReference"
-										}
+										"type": "String"
+									},
+									"IsLoaded": {
+										"value": "true",
+										"type": "Boolean"
+									},
+									"IsMoved": {
+										"value": null,
+										"type": "Boolean"
 									}
-								]
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_db_sql_azure",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "Stored procedure1_copy1_copy1",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "If Condition1",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.00:05:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[PR_LogRepository]",
+								"storedProcedureParameters": {
+									"Command": {
+										"value": "Insert",
+										"type": "String"
+									},
+									"Filename": {
+										"value": {
+											"value": "item().name",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"IsLoaded": {
+										"value": "true",
+										"type": "Boolean"
+									},
+									"IsMoved": {
+										"value": null,
+										"type": "Boolean"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_db_sql_azure",
+								"type": "LinkedServiceReference"
 							}
 						}
 					]
