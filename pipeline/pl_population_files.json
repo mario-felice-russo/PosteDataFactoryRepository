@@ -94,10 +94,7 @@
 										"type": "String"
 									},
 									"Filename": {
-										"value": {
-											"value": "@item().name",
-											"type": "Expression"
-										},
+										"value": "@item().name",
 										"type": "String"
 									},
 									"IsLoaded": {
@@ -107,6 +104,10 @@
 									"IsMoved": {
 										"value": null,
 										"type": "Boolean"
+									},
+									"Message": {
+										"value": null,
+										"type": "String"
 									}
 								}
 							},
@@ -138,23 +139,24 @@
 								"storedProcedureName": "[dbo].[PR_LogRepository]",
 								"storedProcedureParameters": {
 									"Command": {
-										"value": "Upsert",
+										"value": "",
 										"type": "String"
 									},
 									"Filename": {
-										"value": {
-											"value": "@item().name",
-											"type": "Expression"
-										},
+										"value": "",
 										"type": "String"
 									},
 									"IsLoaded": {
-										"value": "false",
+										"value": "",
 										"type": "Boolean"
 									},
 									"IsMoved": {
-										"value": null,
+										"value": "",
 										"type": "Boolean"
+									},
+									"Message": {
+										"value": "",
+										"type": "String"
 									}
 								}
 							},
