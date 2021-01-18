@@ -68,7 +68,7 @@
 							}
 						},
 						{
-							"name": "Stored procedure1_copy1",
+							"name": "UpsertWithLoadedStored",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -120,7 +120,7 @@
 							}
 						},
 						{
-							"name": "Stored procedure1_copy1_copy1",
+							"name": "UpsertNotLoadedStored",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -402,7 +402,7 @@
 							"type": "ExecuteDataFlow",
 							"dependsOn": [
 								{
-									"activity": "Stored procedure1_copy1",
+									"activity": "UpsertWithLoadedStored",
 									"dependencyConditions": [
 										"Succeeded"
 									]
