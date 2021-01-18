@@ -232,7 +232,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "dataflow1",
+						"activity": "AdaptNullDataflow",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -454,7 +454,7 @@
 				]
 			},
 			{
-				"name": "dataflow1",
+				"name": "AdaptNullDataflow",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
@@ -474,7 +474,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "dataflow1",
+						"referenceName": "AdaptNullDataflow",
 						"type": "DataFlowReference"
 					},
 					"compute": {
