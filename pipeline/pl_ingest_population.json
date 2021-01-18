@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy population data",
+				"name": "PopulationCopyFromDatalake",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -232,7 +232,7 @@
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
-						"activity": "Copy population data",
+						"activity": "PopulationCopyFromDatalake",
 						"dependencyConditions": [
 							"Succeeded"
 						]
