@@ -488,7 +488,8 @@
 		"concurrency": 1,
 		"parameters": {
 			"currentFile": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "population_filled.tsv"
 			}
 		},
 		"annotations": []
