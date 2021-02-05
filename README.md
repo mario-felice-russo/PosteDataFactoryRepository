@@ -20,8 +20,7 @@ La procedura di acquisizione iniziale dei dati nelle tabelle **Synapse** è sudd
 
 L'immagine riportata qui sotto visualizza il contenuto delle singole fasi:
 
-![image-20210205104111572](Image_Step_Infasamento_Iniziale/image-20210205104111572.png)
-![Processo generale](Image_Step_Infasamento_Iniziale/Primo Infasamento Processo_v1.00.png)
+![Processo generale](Image_Step_Infasamento_Iniziale/Primo%20Infasamento%20Processo_v1.00.png)
 
 
 
