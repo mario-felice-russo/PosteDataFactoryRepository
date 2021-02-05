@@ -6,6 +6,8 @@ Il processo di migrazione, data la quantità di dati presenti, prevede diverse f
 
 
 
+
+
 ## 1. Processo Generale
 
 La procedura di acquisizione iniziale dei dati nelle tabelle **Synapse** è suddivisa nelle seguenti macro attività:
