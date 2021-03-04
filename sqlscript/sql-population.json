@@ -1,0 +1,16 @@
+{
+	"name": "sql-population",
+	"properties": {
+		"content": {
+			"query": "\nSELECT country_name, year, nr = COUNT(*)\nFROM OPENROWSET(\n        BULK 'csv/population/population.csv',\n        DATA_SOURCE = 'SqlOnDemandDemo',\n        FORMAT = 'CSV', PARSER_VERSION = '2.0',\n        FIELDTERMINATOR =',',\n        ROWTERMINATOR = '\\n'\n    )\nWITH (\n    [country_code] VARCHAR (5) COLLATE Latin1_General_100_CI_AS_SC_UTF8,\n    [country_name] VARCHAR (100) COLLATE Latin1_General_100_CI_AS_SC_UTF8,\n    [year] smallint,\n    [population] bigint\n) \nAS [r]\nWHERE\n    country_name = 'Germany'\nGROUP BY country_name, year\nORDER BY country_name, year;\n\nSELECT *\nFROM OPENROWSET(\n        BULK 'csv/population/population.csv',\n        DATA_SOURCE = 'SqlOnDemandDemo',\n        FORMAT = 'CSV', PARSER_VERSION = '2.0',\n        FIELDTERMINATOR =',',\n        ROWTERMINATOR = '\\n'\n    )\nWITH (\n    [country_code] VARCHAR (5) COLLATE Latin1_General_100_BIN2_UTF8,\n    [country_name] VARCHAR (100) COLLATE Latin1_General_100_BIN2_UTF8,\n    [year] smallint,\n    [population] bigint\n) \nAS [r]\nWHERE\n    country_name = 'Italy'\n    AND year BETWEEN 2018 AND 2022;\n\n/*\nSELECT [session_id] FROM [sys].[dm_exec_connections]\n\n-- Make kill statements for each session_id\nkill 80;\nkill 81;\nkill 82;\nkill 83;\nkill 112;\nkill 123;\n\nSELECT CONVERT(varchar, SERVERPROPERTY('collation'));\nSELECT * FROM sys.fn_helpcollations() where name like 'Latin1%' and name like '%UTF8%';\n\n-- Alter database\nALTER DATABASE [mg3-sample] COLLATE Latin1_General_100_BIN2_UTF8;\n-- ALTER DATABASE [mg3-sample] COLLATE SQL_Latin1_General_CP1_CI_AS\n*/\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "mg3-sample"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,59 @@
+{
+	"name": "SourceDataset_ui5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "carrdataset_s3_public",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Car_Name",
+				"type": "String"
+			},
+			{
+				"name": "Year",
+				"type": "String"
+			},
+			{
+				"name": "Selling_Price",
+				"type": "String"
+			},
+			{
+				"name": "Present_Price",
+				"type": "String"
+			},
+			{
+				"name": "Kms_Driven",
+				"type": "String"
+			},
+			{
+				"name": "Fuel_Type",
+				"type": "String"
+			},
+			{
+				"name": "Seller_Type",
+				"type": "String"
+			},
+			{
+				"name": "Transmission",
+				"type": "String"
+			},
+			{
+				"name": "Owner",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

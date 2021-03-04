@@ -1,0 +1,16 @@
+{
+	"name": "sql-cars-select",
+	"properties": {
+		"content": {
+			"query": "SELECT  *   \nFROM \n    OPENROWSET(\n        BULK  'abfss://mg3synapsefilesystem@mg3synapsestorage.dfs.core.windows.net/csv-car-dataset.csv', \n        FORMAT  =   'CSV', \n        FIELDTERMINATOR  = ',', \n        ROWTERMINATOR  =   '\\n'     \n    ) WITH (\n  [Car_Name] VARCHAR (100)  COLLATE Latin1_General_100_BIN2_UTF8, \n  [Year] smallint, \n  [Selling_Price] VARCHAR (100)  COLLATE Latin1_General_100_BIN2_UTF8, \n  [Present_Price] VARCHAR (100)  COLLATE Latin1_General_100_BIN2_UTF8, \n  [Kms_Driven] bigint, \n  [Fuel_Type] VARCHAR (100)  COLLATE Latin1_General_100_BIN2_UTF8, \n  [Seller_Type VARCHAR (100)  COLLATE Latin1_General_100_BIN2_UTF8, \n  [Transmission] VARCHAR (100)  COLLATE Latin1_General_100_BIN2_UTF8, \n  [Owner] VARCHAR (100)  COLLATE Latin1_General_100_BIN2_UTF8\n)  AS [r] \nWHERE  \n  Car_Name ='ritz' AND year=2014",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "db-lms"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}
