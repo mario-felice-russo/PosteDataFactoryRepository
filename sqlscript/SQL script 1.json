@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP (100) [Car_Name]\n,[Year]\n,[Selling_Price]\n,[Present_Price]\n,[Kms_Driven]\n,[Fuel_Type]\n,[Seller_Type]\n,[Transmission]\n,[Owner]\n FROM [dbo].[ExternalTable]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "db-lms"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
